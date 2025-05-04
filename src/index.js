@@ -5,8 +5,11 @@ const app = express();
 const port = 3000;
 const path = require('path')
 
-//HTTP request
+//HTTP logger
 app.use(morgan('combined'))
+
+//static files
+app.use(express.static(path.join(__dirname, 'public')))
 
 //template engine
 app.engine('hbs', engine({extname: '.hbs'}));
