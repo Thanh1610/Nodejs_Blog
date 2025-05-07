@@ -2,12 +2,11 @@ const Course = require('../models/courses');
 
 const home = async (req, res) => {
     try {
-        const courses = await Course.find({});
-        res.json(courses);
+        const courses = await Course.find({}).lean();
+        res.render('home', { courses });
     } catch (error) {
         res.status(500).send('Lỗi server');
     }
-    // res.render('news');
 };
 
 const search = (req, res) => {
