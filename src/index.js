@@ -6,10 +6,13 @@ const port = 3000;
 const path = require('path')
 
 //HTTP logger
-app.use(morgan('combined'))
+// app.use(morgan('combined'))
 
 //static files
 app.use(express.static(path.join(__dirname, 'public')))
+
+app.use(express.urlencoded({extended:true}));
+app.use(express.json());
 
 //template engine
 app.engine('hbs', engine({extname: '.hbs'}));
@@ -22,7 +25,19 @@ app.get('/', (req, res) => {
 })
 
 app.get('/news', (req, res) => {
+  console.log(req.query.q);
+  
   res.render('news');
+})
+
+app.get('/search', (req, res) => {
+  res.render('search');
+})
+
+app.post('/search', (req, res) => {
+  console.log(req.body);
+  
+  res.send('');
 })
 
 app.listen(port, () => {
