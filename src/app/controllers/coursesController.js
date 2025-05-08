@@ -24,8 +24,31 @@ const store = async (req, res) => {
         res.status(500).json({ message: 'Lỗi khi lưu khoá học' });
     }
 };
+
+//[Get/courses/:id/edit]
+const edit = async (req, res) => {
+    try {
+        const course = await Course.findById(req.params.id).lean();
+        res.render('courses/edit', { course });
+    } catch (error) {
+        res.status(500).send('Lỗi server');
+    }
+};
+
+//[Put/courses/:id]
+const update = async (req, res) => {
+    try {
+        const course = await Course.updateOne({ _id: req.params.id }, req.body);
+        res.redirect('/me/stored/courses');
+    } catch (error) {
+        res.status(500).send('Lỗi server');
+    }
+};
+
 module.exports = {
     show,
     create,
     store,
+    edit,
+    update,
 };

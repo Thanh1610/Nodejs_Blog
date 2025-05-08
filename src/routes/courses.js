@@ -2,8 +2,10 @@ const express = require('express');
 const coursesController = require('../app/controllers/coursesController');
 const router = express.Router();
 
-router.use('/create', coursesController.create);
-router.use('/store', coursesController.store);
-router.use('/:slug', coursesController.show);
+router.get('/create', coursesController.create);
+router.post('/store', coursesController.store);
+router.get('/:id/edit', coursesController.edit);
+router.put('/:id', coursesController.update);
+router.get('/:slug', coursesController.show);
 
 module.exports = router;
