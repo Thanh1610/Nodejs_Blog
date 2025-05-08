@@ -45,10 +45,21 @@ const update = async (req, res) => {
     }
 };
 
+//[Delete/courses/:id]
+const destroy = async (req, res) => {
+    try {
+        const course = await Course.deleteOne({ _id: req.params.id }, req.body);
+        res.redirect('/me/stored/courses');
+    } catch (error) {
+        res.status(500).send('Lỗi server');
+    }
+};
+
 module.exports = {
     show,
     create,
     store,
     edit,
     update,
+    destroy,
 };
