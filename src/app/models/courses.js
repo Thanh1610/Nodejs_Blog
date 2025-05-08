@@ -1,13 +1,19 @@
 const mongoose = require('mongoose');
+const slug = require('mongoose-slug-updater');
+mongoose.plugin(slug);
 const Schema = mongoose.Schema;
 const ObjectId = mongoose.ObjectId;
 
-const Course = new Schema({
-    name: { type: String, default: 'chưa có dữ liệu !', maxlength: 255 },
-    description: { type: String, default: 'chưa có dữ liệu !', maxlength: 600 },
-    image: { type: String, default: 'chưa có dữ liệu !', maxlength: 255 },
-    createAt: { type: Date, default: Date.now },
-    updateAt: { type: Date, default: Date.now },
-});
+const Course = new Schema(
+    {
+        name: { type: String, required: true },
+        description: { type: String },
+        image: { type: String },
+        videoId: { type: String, required: true },
+        level: { type: String },
+        slug: { type: String, slug: 'name', unique: true },
+    },
+    { timestamps: true },
+);
 
 module.exports = mongoose.model('Course', Course);
